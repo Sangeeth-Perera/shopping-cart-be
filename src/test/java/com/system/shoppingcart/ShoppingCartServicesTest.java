@@ -22,7 +22,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 /**
- * This class is used to handle Shopping Cart REST end points.
+ * This class is used to Test Shopping Cart Services.
  *
  * @author Sangeeth Perera
  * @version  2021.05.26
@@ -43,20 +43,11 @@ public class ShoppingCartServicesTest {
         shoppingCartService = new ShoppingCartServiceImpl(shoppingCartRepository);
     }
 
-    /**
-     * Issue Customer Order Service
-     * generatePortId
-     *
-     * Static method UniqueNumber.createRandomCharSequence is not called
-     * Due to above reason, last 4 letters are not in the test response Port Id
-     */
+
     @Test
     public void testGetItemPriceList() {
         String itemCode = "HC";
         Double itemPrice = 300.00;
-//        HashMap<String, Double> itemMap = new LinkedHashMap<>();
-//        itemMap.put("1", 200.00);
-//        itemMap.put("2", 400.00);
         try {
             Mockito.when(shoppingCartRepository.getItemPrice(eq(itemCode))).thenReturn(itemPrice);
             try (MockedStatic<PriceEngineUtil> mocked = Mockito.mockStatic(PriceEngineUtil.class)) {
@@ -66,6 +57,23 @@ public class ShoppingCartServicesTest {
             }
         } catch (Exception e) {
             fail("testGetItemPriceList method test failed \n " + e);
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void testCalculateItemTotal() {
+        String itemCode = "HC";
+        Integer quantity=10;
+        Double itemPrice = 300.00;
+        try {
+            Mockito.when(shoppingCartRepository.getItemPrice(eq(itemCode))).thenReturn(itemPrice);
+            try (MockedStatic<PriceEngineUtil> mocked = Mockito.mockStatic(PriceEngineUtil.class)) {
+                shoppingCartService.calculateItemTotal(itemCode,quantity);
+                mocked.verify(() -> PriceEngineUtil.priceCalculatorEngine(any(String.class), any(Integer.class), any(Double.class)),times(1));
+                verify(shoppingCartRepository).getItemPrice(eq(itemCode));
+            }
+        } catch (Exception e) {
+            fail("testCalculateItemTotal method test failed \n " + e);
             e.printStackTrace();
         }
     }
