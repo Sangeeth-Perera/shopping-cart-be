@@ -18,18 +18,11 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
-DROP DATABASE shopping_cart;
 --
 -- TOC entry 2971 (class 1262 OID 33799)
 -- Name: shopping_cart; Type: DATABASE; Schema: -; Owner: postgres
---
-
-CREATE DATABASE shopping_cart WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8';
-
 
 ALTER DATABASE shopping_cart OWNER TO postgres;
-
-\connect shopping_cart
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -128,4 +121,3 @@ INSERT INTO shopping_cart_schema.meta_data (name, value) VALUES ('cartons-discou
 --
 -- PostgreSQL database dump complete
 --
-
