@@ -2,6 +2,7 @@
 
 Initially setup the PostgreSQL database schema which is in the resource folder.
 Then do the necessary changes in the application.properties file (profiling)
+(Create a datbase called shopping_cart and execute the SQL script which is in the resource folder)
 
 ## Available Scripts
 
